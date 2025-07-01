@@ -1,5 +1,5 @@
 {
-  "name": "cnc-plugin-registry",
+  "name": "plugin-registry",
   "version": "1.0.0",
   "description": "Centralized registry for CNC jog controls application plugins",
   "main": "registry.json",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/cnc-plugin-registry.git"
+    "url": "https://github.com/whttlr/plugin-registry.git"
   },
   "keywords": [
     "cnc",

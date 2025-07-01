@@ -65,10 +65,10 @@ Each plugin must include a `plugin.json` manifest:
   "description": "Real-time machine status monitoring with comprehensive dashboard",
   "author": "Your Organization",
   "license": "MIT",
-  "homepage": "https://github.com/your-org/machine-monitor-plugin",
+  "homepage": "https://github.com/whttlr/machine-monitor-plugin",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/machine-monitor-plugin.git"
+    "url": "https://github.com/whttlr/machine-monitor-plugin.git"
   },
   "keywords": ["monitoring", "dashboard", "real-time"],
   "category": "monitoring",
@@ -178,12 +178,12 @@ The registry provides a simple JSON API:
 
 ### Get All Plugins
 ```
-GET https://raw.githubusercontent.com/your-org/cnc-plugin-registry/main/registry.json
+GET https://raw.githubusercontent.com/whttlr/plugin-registry/main/registry.json
 ```
 
 ### Get Plugin Manifest
 ```
-GET https://raw.githubusercontent.com/your-org/cnc-plugin-registry/main/plugins/{plugin-id}/plugin.json
+GET https://raw.githubusercontent.com/whttlr/plugin-registry/main/plugins/{plugin-id}/plugin.json
 ```
 
 ### Response Format
@@ -232,8 +232,8 @@ GET https://raw.githubusercontent.com/your-org/cnc-plugin-registry/main/plugins/
 ## 📞 Support
 
 - **Documentation**: [Plugin Development Guide](https://docs.example.com/plugins)
-- **Issues**: [GitHub Issues](https://github.com/your-org/cnc-plugin-registry/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/cnc-plugin-registry/discussions)
+- **Issues**: [GitHub Issues](https://github.com/whttlr/plugin-registry/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/whttlr/plugin-registry/discussions)
 - **Community**: [Discord Server](https://discord.gg/cnc-controls)
 
 ## 📄 License
