@@ -1,0 +1,112 @@
+name: Validate Plugin Registry
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install validation dependencies
+        run: |
+          npm install -g ajv-cli
+          npm install -g jsonlint
+          
+      - name: Lint JSON files
+        run: |
+          echo "Validating JSON syntax..."
+          jsonlint registry.json
+          find plugins -name "*.json" -exec jsonlint {} \;
+          find schemas -name "*.json" -exec jsonlint {} \;
+          
+      - name: Validate registry.json against schema
+        run: |
+          echo "Validating registry.json..."
+          ajv validate -s schemas/registry-schema.json -d registry.json
+          
+      - name: Validate plugin manifests
+        run: |
+          echo "Validating plugin manifests..."
+          for manifest in plugins/*/plugin.json; do
+            if [ -f "$manifest" ]; then
+              echo "Validating $manifest"
+              ajv validate -s schemas/plugin-schema.json -d "$manifest"
+            fi
+          done
+          
+      - name: Check for duplicate plugin IDs
+        run: |
+          echo "Checking for duplicate plugin IDs..."
+          node -e "
+            const registry = require('./registry.json');
+            const ids = registry.plugins.map(p => p.id);
+            const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+            if (duplicates.length > 0) {
+              console.error('Duplicate plugin IDs found:', duplicates);
+              process.exit(1);
+            }
+            console.log('No duplicate IDs found');
+          "
+          
+      - name: Validate URLs are accessible
+        run: |
+          echo "Checking URL accessibility..."
+          node -e "
+            const https = require('https');
+            const http = require('http');
+            const registry = require('./registry.json');
+            
+            async function checkUrl(url) {
+              return new Promise((resolve, reject) => {
+                const client = url.startsWith('https') ? https : http;
+                const req = client.request(url, { method: 'HEAD' }, (res) => {
+                  resolve(res.statusCode < 400);
+                });
+                req.on('error', () => resolve(false));
+                req.setTimeout(5000, () => {
+                  req.destroy();
+                  resolve(false);
+                });
+                req.end();
+              });
+            }
+            
+            async function main() {
+              const urls = [];
+              registry.plugins.forEach(plugin => {
+                if (plugin.downloadUrl) urls.push(plugin.downloadUrl);
+                if (plugin.manifestUrl) urls.push(plugin.manifestUrl);
+              });
+              
+              console.log('Checking', urls.length, 'URLs...');
+              const results = await Promise.all(urls.map(async url => {
+                const accessible = await checkUrl(url);
+                return { url, accessible };
+              }));
+              
+              const failed = results.filter(r => !r.accessible);
+              if (failed.length > 0) {
+                console.warn('Some URLs are not accessible:');
+                failed.forEach(f => console.warn('  -', f.url));
+                // Don't fail the build for URL checks in validation
+                // process.exit(1);
+              } else {
+                console.log('All URLs are accessible');
+              }
+            }
+            
+            main().catch(console.error);
+          "

@@ -1,0 +1,41 @@
+{
+  "id": "tool-library",
+  "name": "Tool Library",
+  "version": "1.0.0",
+  "description": "Comprehensive tool management system for organizing CNC tool collection with specifications, usage tracking, and maintenance schedules",
+  "author": "CNC Controls Team",
+  "license": "MIT",
+  "homepage": "https://github.com/your-org/tool-library-plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/tool-library-plugin.git"
+  },
+  "keywords": ["tools", "library", "organization", "management", "inventory"],
+  "category": "management",
+  "placement": "standalone",
+  "screen": "new",
+  "menuTitle": "Tool Library",
+  "menuIcon": "ToolOutlined",
+  "routePath": "/tool-library",
+  "size": {
+    "width": "auto",
+    "height": "auto"
+  },
+  "priority": 20,
+  "autoStart": false,
+  "permissions": ["config.read", "config.write", "files.read", "files.write"],
+  "compatibility": {
+    "minAppVersion": "1.0.0",
+    "maxAppVersion": "2.0.0"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "antd": "^5.0.0",
+    "lodash": "^4.17.21"
+  },
+  "screenshots": [
+    "https://raw.githubusercontent.com/your-org/tool-library-plugin/main/screenshots/library-view.png",
+    "https://raw.githubusercontent.com/your-org/tool-library-plugin/main/screenshots/tool-details.png"
+  ],
+  "changelog": "https://raw.githubusercontent.com/your-org/tool-library-plugin/main/CHANGELOG.md"
+}

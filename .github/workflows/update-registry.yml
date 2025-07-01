@@ -1,0 +1,115 @@
+name: Update Registry on Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  update-registry:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Extract plugin information from release
+        id: extract-info
+        run: |
+          # Extract plugin ID from tag name (expected format: plugin-name-v1.0.0)
+          TAG_NAME="${{ github.event.release.tag_name }}"
+          VERSION=$(echo "$TAG_NAME" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+$' | sed 's/^v//')
+          PLUGIN_ID=$(echo "$TAG_NAME" | sed "s/-v$VERSION$//")
+          
+          echo "plugin_id=$PLUGIN_ID" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+          # Get download URL from release assets
+          DOWNLOAD_URL="${{ github.event.release.assets[0].browser_download_url }}"
+          echo "download_url=$DOWNLOAD_URL" >> $GITHUB_OUTPUT
+          
+          echo "Extracted: Plugin=$PLUGIN_ID, Version=$VERSION"
+          
+      - name: Update registry.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            
+            const pluginId = '${{ steps.extract-info.outputs.plugin_id }}';
+            const version = '${{ steps.extract-info.outputs.version }}';
+            const downloadUrl = '${{ steps.extract-info.outputs.download_url }}';
+            
+            // Read current registry
+            const registryPath = 'registry.json';
+            const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
+            
+            // Check if plugin manifest exists
+            const manifestPath = \`plugins/\${pluginId}/plugin.json\`;
+            if (!fs.existsSync(manifestPath)) {
+              console.error(\`Plugin manifest not found: \${manifestPath}\`);
+              process.exit(1);
+            }
+            
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            
+            // Find existing plugin or create new entry
+            let pluginIndex = registry.plugins.findIndex(p => p.id === pluginId);
+            let plugin;
+            
+            if (pluginIndex >= 0) {
+              plugin = registry.plugins[pluginIndex];
+            } else {
+              plugin = {
+                id: manifest.id,
+                name: manifest.name,
+                description: manifest.description,
+                author: manifest.author,
+                category: manifest.category || 'utility',
+                tags: manifest.keywords || [],
+                minAppVersion: manifest.compatibility?.minAppVersion || '1.0.0',
+                maxAppVersion: manifest.compatibility?.maxAppVersion || '2.0.0'
+              };
+              registry.plugins.push(plugin);
+              pluginIndex = registry.plugins.length - 1;
+            }
+            
+            // Update plugin with release info
+            plugin.version = version;
+            plugin.downloadUrl = downloadUrl;
+            plugin.manifestUrl = \`https://raw.githubusercontent.com/\${{ github.repository }}/main/plugins/\${pluginId}/plugin.json\`;
+            plugin.lastUpdated = new Date().toISOString();
+            
+            // Update registry metadata
+            registry.lastUpdated = new Date().toISOString();
+            
+            // Write updated registry
+            fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2) + '\\n');
+            
+            console.log(\`Updated registry for plugin: \${pluginId} v\${version}\`);
+          "
+          
+      - name: Validate updated registry
+        run: |
+          npm install -g ajv-cli
+          ajv validate -s schemas/registry-schema.json -d registry.json
+          
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add registry.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update registry for ${{ steps.extract-info.outputs.plugin_id }} v${{ steps.extract-info.outputs.version }}"
+            git push
+            echo "Registry updated successfully"
+          fi

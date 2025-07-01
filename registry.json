@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "plugins": [
+    {
+      "id": "machine-monitor",
+      "name": "Machine Monitor",
+      "description": "Real-time machine status monitoring with comprehensive dashboard",
+      "author": "CNC Controls Team",
+      "version": "1.0.0",
+      "downloadUrl": "https://github.com/your-org/cnc-plugin-registry/releases/download/machine-monitor-v1.0.0/machine-monitor.zip",
+      "manifestUrl": "https://raw.githubusercontent.com/your-org/cnc-plugin-registry/main/plugins/machine-monitor/plugin.json",
+      "category": "monitoring",
+      "tags": ["dashboard", "real-time", "status"],
+      "minAppVersion": "1.0.0",
+      "maxAppVersion": "2.0.0",
+      "lastUpdated": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": "gcode-snippets",
+      "name": "G-Code Snippets",
+      "description": "Quick access to common G-code commands and snippets",
+      "author": "CNC Controls Team",
+      "version": "1.1.0",
+      "downloadUrl": "https://github.com/your-org/cnc-plugin-registry/releases/download/gcode-snippets-v1.1.0/gcode-snippets.zip",
+      "manifestUrl": "https://raw.githubusercontent.com/your-org/cnc-plugin-registry/main/plugins/gcode-snippets/plugin.json",
+      "category": "utility",
+      "tags": ["gcode", "snippets", "productivity"],
+      "minAppVersion": "1.0.0",
+      "maxAppVersion": "2.0.0",
+      "lastUpdated": "2024-01-10T15:45:00Z"
+    },
+    {
+      "id": "tool-library",
+      "name": "Tool Library",
+      "description": "Manage and organize your CNC tool collection",
+      "author": "CNC Controls Team",
+      "version": "1.0.0",
+      "downloadUrl": "https://github.com/your-org/cnc-plugin-registry/releases/download/tool-library-v1.0.0/tool-library.zip",
+      "manifestUrl": "https://raw.githubusercontent.com/your-org/cnc-plugin-registry/main/plugins/tool-library/plugin.json",
+      "category": "management",
+      "tags": ["tools", "library", "organization"],
+      "minAppVersion": "1.0.0",
+      "maxAppVersion": "2.0.0",
+      "lastUpdated": "2024-01-05T09:15:00Z"
+    }
+  ],
+  "categories": [
+    "monitoring",
+    "control",
+    "visualization",
+    "utility",
+    "automation",
+    "management"
+  ],
+  "lastUpdated": "2024-01-15T10:30:00Z"
+}

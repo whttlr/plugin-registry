@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CNC Plugin Manifest Schema",
+  "type": "object",
+  "required": ["id", "name", "version", "description", "author", "placement"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique plugin identifier (lowercase, numbers, hyphens only)",
+      "minLength": 3,
+      "maxLength": 50
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Human-readable plugin name"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (major.minor.patch)"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500,
+      "description": "Brief description of plugin functionality"
+    },
+    "author": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Plugin author or organization"
+    },
+    "license": {
+      "type": "string",
+      "description": "Software license identifier",
+      "default": "MIT"
+    },
+    "homepage": {
+      "type": "string",
+      "format": "uri",
+      "description": "Plugin homepage URL"
+    },
+    "repository": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["git", "svn", "hg"]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": ["type", "url"]
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 20
+      },
+      "maxItems": 10,
+      "description": "Search keywords for the plugin"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["monitoring", "control", "visualization", "utility", "automation", "management"],
+      "description": "Primary plugin category"
+    },
+    "placement": {
+      "type": "string",
+      "enum": ["dashboard", "standalone", "modal", "sidebar"],
+      "description": "Where the plugin will be displayed in the UI"
+    },
+    "screen": {
+      "type": "string",
+      "enum": ["main", "controls", "settings", "new"],
+      "description": "Which screen the plugin appears on",
+      "default": "main"
+    },
+    "size": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "oneOf": [
+            {"type": "number", "minimum": 200},
+            {"type": "string", "enum": ["auto"]}
+          ]
+        },
+        "height": {
+          "oneOf": [
+            {"type": "number", "minimum": 150},
+            {"type": "string", "enum": ["auto"]}
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "priority": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 100,
+      "description": "Display priority (1 = highest)",
+      "default": 50
+    },
+    "autoStart": {
+      "type": "boolean",
+      "description": "Whether plugin starts automatically",
+      "default": false
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "machine.read",
+          "machine.write",
+          "machine.control",
+          "status.read",
+          "files.read",
+          "files.write",
+          "config.read",
+          "config.write",
+          "network.access"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Required permissions for plugin operation"
+    },
+    "menuTitle": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 30,
+      "description": "Menu title for standalone plugins"
+    },
+    "menuIcon": {
+      "type": "string",
+      "description": "Icon name for menu (Ant Design icons)"
+    },
+    "routePath": {
+      "type": "string",
+      "pattern": "^/[a-z0-9-/]*$",
+      "description": "Custom route path for standalone plugins"
+    },
+    "compatibility": {
+      "type": "object",
+      "properties": {
+        "minAppVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "maxAppVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      },
+      "required": ["minAppVersion"],
+      "description": "Application version compatibility"
+    },
+    "dependencies": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z0-9@/-]+$": {
+          "type": "string"
+        }
+      },
+      "description": "NPM-style dependency declarations"
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "maxItems": 5,
+      "description": "Screenshot URLs for plugin gallery"
+    },
+    "changelog": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to changelog document"
+    }
+  },
+  "additionalProperties": false
+}

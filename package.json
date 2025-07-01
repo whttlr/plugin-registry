@@ -1,0 +1,32 @@
+{
+  "name": "cnc-plugin-registry",
+  "version": "1.0.0",
+  "description": "Centralized registry for CNC jog controls application plugins",
+  "main": "registry.json",
+  "scripts": {
+    "validate": "node scripts/validate-registry.js",
+    "add-plugin": "node scripts/add-plugin.js",
+    "update-plugin": "node scripts/update-plugin.js",
+    "test": "npm run validate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/cnc-plugin-registry.git"
+  },
+  "keywords": [
+    "cnc",
+    "plugins",
+    "registry",
+    "automation",
+    "manufacturing"
+  ],
+  "author": "CNC Controls Team",
+  "license": "MIT",
+  "devDependencies": {
+    "ajv-cli": "^5.0.0",
+    "jsonlint": "^1.6.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
