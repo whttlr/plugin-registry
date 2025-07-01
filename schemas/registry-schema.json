@@ -80,8 +80,8 @@
           },
           "lastUpdated": {
             "type": "string",
-            "format": "date-time",
-            "description": "Last update timestamp"
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?Z$",
+            "description": "Last update timestamp (ISO 8601 format)"
           },
           "downloads": {
             "type": "integer",
@@ -115,8 +115,8 @@
     },
     "lastUpdated": {
       "type": "string",
-      "format": "date-time",
-      "description": "Registry last update timestamp"
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{3})?Z$",
+      "description": "Registry last update timestamp (ISO 8601 format)"
     },
     "metadata": {
       "type": "object",
