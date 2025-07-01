@@ -41,7 +41,7 @@
     },
     "homepage": {
       "type": "string",
-      "format": "uri",
+      "pattern": "^https?://",
       "description": "Plugin homepage URL"
     },
     "repository": {
@@ -53,7 +53,7 @@
         },
         "url": {
           "type": "string",
-          "format": "uri"
+          "pattern": "^https?://"
         }
       },
       "required": ["type", "url"]
@@ -176,14 +176,14 @@
       "type": "array",
       "items": {
         "type": "string",
-        "format": "uri"
+        "pattern": "^https?://"
       },
       "maxItems": 5,
       "description": "Screenshot URLs for plugin gallery"
     },
     "changelog": {
       "type": "string",
-      "format": "uri",
+      "pattern": "^https?://",
       "description": "URL to changelog document"
     }
   },

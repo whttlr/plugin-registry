@@ -45,12 +45,12 @@
           },
           "downloadUrl": {
             "type": "string",
-            "format": "uri",
+            "pattern": "^https?://",
             "description": "Direct download URL for plugin package"
           },
           "manifestUrl": {
             "type": "string",
-            "format": "uri",
+            "pattern": "^https?://",
             "description": "URL to plugin manifest file"
           },
           "category": {

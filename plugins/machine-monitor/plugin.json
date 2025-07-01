@@ -5,10 +5,10 @@
   "description": "Real-time machine status monitoring with comprehensive dashboard displaying position, speed, and connectivity status",
   "author": "CNC Controls Team",
   "license": "MIT",
-  "homepage": "https://github.com/your-org/machine-monitor-plugin",
+  "homepage": "https://github.com/whttlr/machine-monitor-plugin",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/machine-monitor-plugin.git"
+    "url": "https://github.com/whttlr/machine-monitor-plugin.git"
   },
   "keywords": ["monitoring", "dashboard", "real-time", "status"],
   "category": "monitoring",
@@ -30,7 +30,7 @@
     "antd": "^5.0.0"
   },
   "screenshots": [
-    "https://raw.githubusercontent.com/your-org/machine-monitor-plugin/main/screenshots/dashboard.png"
+    "https://raw.githubusercontent.com/whttlr/machine-monitor-plugin/main/screenshots/dashboard.png"
   ],
-  "changelog": "https://raw.githubusercontent.com/your-org/machine-monitor-plugin/main/CHANGELOG.md"
+  "changelog": "https://raw.githubusercontent.com/whttlr/machine-monitor-plugin/main/CHANGELOG.md"
 }
