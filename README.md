@@ -18,6 +18,8 @@ cnc-plugin-registry/
 │   ├── plugin-schema.json       # Plugin manifest schema
 │   └── registry-schema.json     # Registry index schema
 ├── 📁 scripts/                   # Management utilities
+│   ├── create-plugin.js         # Generate new plugin from template
+│   ├── package-plugin.js        # Build and package plugin for distribution
 │   ├── add-plugin.js            # Add new plugin to registry
 │   ├── update-plugin.js         # Update existing plugin
 │   └── validate-registry.js     # Validate registry and manifests
@@ -35,22 +37,28 @@ Browse and install plugins directly from your CNC application's plugin store, wh
 
 ### For Plugin Developers
 
-1. **Create your plugin** following the [Plugin Development Guide](https://docs.example.com/plugin-development)
+**Quick Start - Create a New Plugin:**
+```bash
+# 1. Generate plugin from template
+node scripts/create-plugin.js my-plugin "My Plugin" dashboard
 
-2. **Add plugin metadata** to this registry:
-   ```bash
-   # Create plugin directory
-   mkdir plugins/your-plugin-id
-   
-   # Create plugin.json manifest (see schema below)
-   nano plugins/your-plugin-id/plugin.json
-   
-   # Add to registry
-   node scripts/add-plugin.js your-plugin-id
-   ```
+# 2. Develop your plugin
+cd my-plugin
+npm install
+npm run dev
 
-3. **Submit a pull request** with your plugin metadata
+# 3. Build and package
+npm run build
+npm run package
 
+# 4. Create GitHub release with the ZIP file
+# 5. Plugin automatically appears in registry!
+```
+
+**Traditional Workflow:**
+1. **Create your plugin** following the development workflow below
+2. **Add plugin metadata** to this registry
+3. **Submit a pull request** with your plugin metadata  
 4. **Create a release** in your plugin repository with format: `your-plugin-id-v1.0.0`
 
 ## 📋 Plugin Manifest Schema
@@ -124,7 +132,27 @@ Each plugin must include a `plugin.json` manifest:
 
 ## 🛠️ Management Scripts
 
-### Add New Plugin
+### Create New Plugin
+```bash
+node scripts/create-plugin.js <plugin-id> <plugin-name> [template-type]
+
+# Examples
+node scripts/create-plugin.js machine-monitor "Machine Monitor" dashboard
+node scripts/create-plugin.js gcode-editor "G-Code Editor" standalone
+node scripts/create-plugin.js quick-settings "Quick Settings" modal
+node scripts/create-plugin.js tool-panel "Tool Panel" sidebar
+```
+
+### Package Plugin for Distribution
+```bash
+node scripts/package-plugin.js <plugin-directory> [output-directory]
+
+# Examples
+node scripts/package-plugin.js ./machine-monitor
+node scripts/package-plugin.js /path/to/plugin ./packages
+```
+
+### Add Plugin to Registry
 ```bash
 node scripts/add-plugin.js <plugin-id> [manifest-path]
 
@@ -153,6 +181,24 @@ This checks:
 - No duplicate plugin IDs
 - Manifest consistency
 - URL accessibility (warning only)
+
+## ⚡ Quick Reference
+
+### Available NPM Scripts
+```bash
+npm run validate        # Validate registry and all manifests
+npm run create-plugin   # Interactive plugin creation
+npm run package-plugin  # Package existing plugin
+npm run add-plugin      # Add plugin to registry
+npm run update-plugin   # Update plugin in registry
+npm test               # Run validation tests
+```
+
+### Plugin Template Types
+- **dashboard**: Small cards for main dashboard (400x300px)
+- **standalone**: Full-screen applications with navigation
+- **modal**: Popup dialogs for focused tasks  
+- **sidebar**: Compact side panels for quick access
 
 ## 🔄 Automated Workflows
 
@@ -218,6 +264,55 @@ GET https://raw.githubusercontent.com/whttlr/plugin-registry/main/plugins/{plugi
 4. **Metadata**: Submit plugin.json to this registry
 5. **Review**: Community review and validation
 6. **Release**: Automated distribution via GitHub releases
+
+## 🔧 Plugin Development Workflow
+
+### 1. Create Plugin from Template
+```bash
+# Generate plugin scaffold
+node scripts/create-plugin.js my-plugin "My Plugin" dashboard
+
+# Navigate to plugin directory
+cd my-plugin
+
+# Install dependencies
+npm install
+```
+
+### 2. Develop Your Plugin
+```bash
+# Start development server
+npm run dev
+
+# Make your changes in src/
+# Test in your CNC application
+```
+
+### 3. Build and Package
+```bash
+# Build for production
+npm run build
+
+# Package for distribution
+npm run package
+
+# This creates: my-plugin-v1.0.0.zip
+```
+
+### 4. Test Package
+1. Install the ZIP file in your CNC application
+2. Verify functionality
+3. Test different screen sizes and placements
+
+### 5. Publish to Registry
+```bash
+# Create GitHub release with the ZIP file
+# Tag format: my-plugin-v1.0.0
+
+# Add to registry (automatic via GitHub Actions)
+# Or manually:
+node scripts/add-plugin.js my-plugin
+```
 
 ## 🤝 Contributing
 

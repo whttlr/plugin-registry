@@ -9,9 +9,18 @@ const path = require('path');
  */
 
 function addPlugin(pluginId, manifestPath = null) {
-  // Default manifest path
+  // Default manifest path - try both registry plugins dir and standalone plugin dir
   if (!manifestPath) {
-    manifestPath = path.join(__dirname, `../plugins/${pluginId}/plugin.json`);
+    const registryPath = path.join(__dirname, `../plugins/${pluginId}/plugin.json`);
+    const standalonePath = path.join(__dirname, `../${pluginId}/plugin.json`);
+    
+    if (fs.existsSync(registryPath)) {
+      manifestPath = registryPath;
+    } else if (fs.existsSync(standalonePath)) {
+      manifestPath = standalonePath;
+    } else {
+      manifestPath = registryPath; // Use registry path for error message
+    }
   }
 
   // Validate inputs
@@ -22,6 +31,12 @@ function addPlugin(pluginId, manifestPath = null) {
 
   if (!fs.existsSync(manifestPath)) {
     console.error(`Error: Plugin manifest not found at ${manifestPath}`);
+    console.error('');
+    console.error('Looked in:');
+    console.error(`  - Registry: ../plugins/${pluginId}/plugin.json`);
+    console.error(`  - Standalone: ../${pluginId}/plugin.json`);
+    console.error('');
+    console.error('Make sure the plugin directory exists and contains plugin.json');
     process.exit(1);
   }
 
@@ -81,6 +96,19 @@ function addPlugin(pluginId, manifestPath = null) {
     maxAppVersion: manifest.compatibility?.maxAppVersion || '2.0.0',
     lastUpdated: new Date().toISOString()
   };
+
+  // Copy manifest to registry plugins directory if not already there
+  const registryPluginDir = path.join(__dirname, `../plugins/${pluginId}`);
+  const registryManifestPath = path.join(registryPluginDir, 'plugin.json');
+  
+  if (!fs.existsSync(registryPluginDir)) {
+    fs.mkdirSync(registryPluginDir, { recursive: true });
+  }
+  
+  if (!fs.existsSync(registryManifestPath)) {
+    fs.copyFileSync(manifestPath, registryManifestPath);
+    console.log(`📋 Copied manifest to registry: plugins/${pluginId}/plugin.json`);
+  }
 
   // Add to registry
   registry.plugins.push(newPlugin);

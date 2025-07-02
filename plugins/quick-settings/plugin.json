@@ -1,0 +1,33 @@
+{
+  "id": "quick-settings",
+  "name": "Quick Settings",
+  "version": "1.0.0",
+  "description": "Quick Settings plugin for CNC Controls application",
+  "author": "Your Name",
+  "license": "MIT",
+  "keywords": [
+    "modal",
+    "cnc",
+    "control"
+  ],
+  "category": "utility",
+  "placement": "modal",
+  "screen": "main",
+  "priority": 50,
+  "autoStart": false,
+  "permissions": [
+    "machine.read"
+  ],
+  "compatibility": {
+    "minAppVersion": "1.0.0",
+    "maxAppVersion": "2.0.0"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "antd": "^5.0.0"
+  },
+  "size": {
+    "width": "auto",
+    "height": "auto"
+  }
+}

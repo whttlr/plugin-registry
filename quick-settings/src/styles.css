@@ -1,0 +1,19 @@
+.modal {
+  /* Plugin-specific styles */
+}
+
+.status-indicator {
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.status-idle { color: #666; }
+.status-running { color: #52c41a; }
+.status-paused { color: #fa8c16; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ant-statistic {
+    text-align: center;
+  }
+}
