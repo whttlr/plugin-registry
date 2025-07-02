@@ -1,0 +1,217 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #1890ff;
+  --ifm-color-primary-dark: #0f7ae5;
+  --ifm-color-primary-darker: #0c6dd9;
+  --ifm-color-primary-darkest: #0a5bb3;
+  --ifm-color-primary-light: #35a3ff;
+  --ifm-color-primary-lighter: #4bb0ff;
+  --ifm-color-primary-lightest: #7dc4ff;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #40a9ff;
+  --ifm-color-primary-dark: #2693ff;
+  --ifm-color-primary-darker: #1a87ff;
+  --ifm-color-primary-darkest: #0066ff;
+  --ifm-color-primary-light: #5ab8ff;
+  --ifm-color-primary-lighter: #6bc4ff;
+  --ifm-color-primary-lightest: #8fd5ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Plugin Gallery Styles */
+.plugin-gallery__controls {
+  margin-bottom: 2rem;
+}
+
+.plugin-gallery__search {
+  margin-bottom: 1.5rem;
+}
+
+.plugin-gallery__search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  font-size: 1rem;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+.plugin-gallery__search-input:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.category-filter__button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 20px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.875rem;
+}
+
+.category-filter__button:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.category-filter__button--active {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+}
+
+.plugin-gallery__stats {
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.875rem;
+}
+
+.plugin-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.plugin-card {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: var(--ifm-background-color);
+  transition: all 0.2s;
+  height: fit-content;
+}
+
+.plugin-card:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.plugin-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.plugin-card__header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--ifm-heading-color);
+}
+
+.plugin-card__version {
+  font-size: 0.75rem;
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-800);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.plugin-card__description {
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+
+.plugin-card__meta {
+  margin-bottom: 1.5rem;
+}
+
+.plugin-card__badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.plugin-card__badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+}
+
+.plugin-card__badge--placement {
+  background: var(--ifm-color-emphasis-600);
+}
+
+.plugin-card__keywords {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.plugin-card__keyword {
+  font-size: 0.75rem;
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-700);
+  padding: 0.125rem 0.5rem;
+  border-radius: 8px;
+}
+
+.plugin-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.plugin-card__author {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.plugin-card__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .plugin-gallery__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-filter {
+    justify-content: center;
+  }
+  
+  .plugin-card__footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  
+  .plugin-card__actions {
+    justify-content: center;
+  }
+}

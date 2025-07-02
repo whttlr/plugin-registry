@@ -329,7 +329,6 @@ node scripts/add-plugin.js my-plugin
 - **Documentation**: [Plugin Development Guide](https://docs.example.com/plugins)
 - **Issues**: [GitHub Issues](https://github.com/whttlr/plugin-registry/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/whttlr/plugin-registry/discussions)
-- **Community**: [Discord Server](https://discord.gg/cnc-controls)
 
 ## 📄 License
 
