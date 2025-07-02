@@ -46,13 +46,13 @@ Compact panels for frequently used utilities
 
 ### 📖 For Users
 - [Browse Plugin Gallery](/plugins) - Discover available plugins
-- [Installation Guide](/docs/getting-started/installation) - Install plugins in your app
-- [User Manual](/docs/user-guide) - Learn how to use plugins
+- [Quick Reference](/docs/quick-reference) - Installation and usage guide
+- [Tutorial](/docs/tutorial-basics/create-a-document) - Learn the basics
 
 ### 💻 For Developers
 - [Development Guide](/docs/development/overview) - Build your first plugin
-- [API Reference](/docs/api/overview) - Complete API documentation  
-- [Publishing Guide](/docs/publishing/overview) - Share your plugins
+- [Quick Reference](/docs/quick-reference) - API and command reference  
+- [Tutorial](/docs/tutorial-basics/create-a-document) - Step-by-step guides
 
 ## Quick Examples
 

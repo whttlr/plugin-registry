@@ -261,11 +261,11 @@ Declare required permissions in your manifest:
 
 ## Next Steps
 
-Now that you understand the basics, dive deeper into specific topics:
+Now that you understand the basics, you can:
 
-- [Plugin Architecture](./architecture) - Detailed system architecture
-- [Configuration & Data Access](./data-access) - Access machine data and settings
-- [UI Components](./ui-components) - Build beautiful interfaces
-- [Testing](./testing) - Comprehensive testing strategies
+- **Expand your plugin** with more advanced features
+- **Test thoroughly** before publishing
+- **Follow React best practices** for UI components
+- **Use TypeScript** for better development experience
 
-Or jump straight to [publishing your plugin](../publishing/overview) when you're ready to share it with the community!
+Ready to share your plugin? Check the [quick reference](/docs/quick-reference) for publishing information and command references!

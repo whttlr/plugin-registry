@@ -219,6 +219,6 @@ npm run validate-registry      # Validate entire registry
 ## Useful Resources
 
 - [Plugin Development Guide](/docs/development/overview)
-- [API Reference](/docs/api/overview)
-- [Publishing Guide](/docs/publishing/overview)
+- [Tutorial Documentation](/docs/tutorial-basics/create-a-document)
+- [Plugin Gallery](/plugins)
 - [GitHub Repository](https://github.com/whttlr/plugin-registry)
