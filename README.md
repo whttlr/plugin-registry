@@ -182,16 +182,29 @@ This checks:
 - Manifest consistency
 - URL accessibility (warning only)
 
+### Test Type Compatibility
+```bash
+node scripts/test-type-compatibility.js
+```
+
+This validates:
+- Plugin-registry uses shared types from @whttlr/plugin-types
+- Electron-app uses shared types from @whttlr/plugin-types  
+- Both systems have compatible type signatures
+- Package versions are synchronized
+- Template generation includes shared types
+
 ## ⚡ Quick Reference
 
 ### Available NPM Scripts
 ```bash
-npm run validate        # Validate registry and all manifests
-npm run create-plugin   # Interactive plugin creation
-npm run package-plugin  # Package existing plugin
-npm run add-plugin      # Add plugin to registry
-npm run update-plugin   # Update plugin in registry
-npm test               # Run validation tests
+npm run validate          # Validate registry and all manifests
+npm run create-plugin     # Interactive plugin creation
+npm run package-plugin    # Package existing plugin
+npm run add-plugin        # Add plugin to registry
+npm run update-plugin     # Update plugin in registry
+npm run test-compatibility # Test type compatibility with electron-app
+npm test                  # Run full test suite (validation + compatibility)
 ```
 
 ### Plugin Template Types

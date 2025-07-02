@@ -47,28 +47,27 @@ Compact panels for frequently used utilities
 ### 📖 For Users
 - [Browse Plugin Gallery](/plugins) - Discover available plugins
 - [Quick Reference](/docs/quick-reference) - Installation and usage guide
-- [Tutorial](/docs/tutorial-basics/create-a-document) - Learn the basics
 
 ### 💻 For Developers
 - [Development Guide](/docs/development/overview) - Build your first plugin
-- [Quick Reference](/docs/quick-reference) - API and command reference  
-- [Tutorial](/docs/tutorial-basics/create-a-document) - Step-by-step guides
+- [Quick Reference](/docs/quick-reference) - API and command reference
 
 ## Quick Examples
 
 ### Simple Dashboard Widget
 ```typescript
 import React from 'react';
-import { PluginAPI } from '@cnc/plugin-api';
+import { PluginAPI } from '@whttlr/plugin-types';
 
 const StatusWidget: React.FC<{ api: PluginAPI }> = ({ api }) => {
-  const machineStatus = api.machine.getStatus();
+  const machineConfig = api.config.getSection('machine');
+  const jogSpeed = api.config.get('machine.jogSettings.defaultSpeed');
   
   return (
     <div className="status-widget">
       <h3>Machine Status</h3>
-      <p>State: {machineStatus.state}</p>
-      <p>Position: X{machineStatus.position.x} Y{machineStatus.position.y}</p>
+      <p>Jog Speed: {jogSpeed} units/min</p>
+      <p>Config loaded: {api.config.isLoaded() ? 'Yes' : 'No'}</p>
     </div>
   );
 };
@@ -77,22 +76,26 @@ const StatusWidget: React.FC<{ api: PluginAPI }> = ({ api }) => {
 ### Plugin Configuration
 ```json
 {
-  "name": "status-widget",
+  "id": "status-widget",
+  "name": "Status Widget",
   "version": "1.0.0",
-  "cncPlugin": {
-    "placement": "dashboard",
-    "permissions": ["machine.read"],
-    "size": { "width": 400, "height": 200 }
+  "description": "Display machine status information",
+  "author": "Your Name",
+  "placement": "dashboard",
+  "permissions": ["machine.read", "config.read"],
+  "size": {
+    "width": 400,
+    "height": 200
   }
 }
 ```
 
 ## Registry Statistics
 
-- **50+** Available plugins
-- **6** Plugin categories
+- **4** Available plugins
+- **6** Plugin categories  
 - **4** Placement types
-- **1000+** Downloads this month
+- **Shared Types**: Uses @whttlr/plugin-types for consistency
 
 ## Community
 

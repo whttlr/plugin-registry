@@ -13,7 +13,7 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
  Create as many sidebars as you want.
  */
 const sidebars: SidebarsConfig = {
-  // Main documentation sidebar - only include existing pages
+  // Main documentation sidebar for plugin registry
   tutorialSidebar: [
     'intro',
     {
@@ -24,26 +24,6 @@ const sidebars: SidebarsConfig = {
       ],
     },
     'quick-reference',
-    {
-      type: 'category',
-      label: 'Tutorial (Default)',
-      items: [
-        'tutorial-basics/create-a-document',
-        'tutorial-basics/create-a-blog-post', 
-        'tutorial-basics/create-a-page',
-        'tutorial-basics/markdown-features',
-        'tutorial-basics/deploy-your-site',
-        'tutorial-basics/congratulations',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Tutorial Extras',
-      items: [
-        'tutorial-extras/manage-docs-versions',
-        'tutorial-extras/translate-your-site',
-      ],
-    },
   ],
 };
 
