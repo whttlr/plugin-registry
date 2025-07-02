@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { validatePluginManifest } = require('./validate-registry');
 
 /**
  * Script to package a plugin for distribution
@@ -41,13 +42,14 @@ async function packagePlugin(pluginDir, outputDir = './dist') {
     process.exit(1);
   }
 
-  // Validate required manifest fields
-  const requiredFields = ['id', 'name', 'version', 'description', 'author', 'placement'];
-  for (const field of requiredFields) {
-    if (!manifest[field]) {
-      console.error(`❌ Error: Missing required field in plugin.json: ${field}`);
-      process.exit(1);
-    }
+  // Validate manifest using shared validation
+  const validationResult = validatePluginManifest(manifest);
+  if (!validationResult.isValid) {
+    console.error('❌ Error: Plugin manifest validation failed:');
+    validationResult.errors.forEach(error => {
+      console.error(`   - ${error}`);
+    });
+    process.exit(1);
   }
 
   // Create output directory

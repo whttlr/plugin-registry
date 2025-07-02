@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { VALID_PERMISSIONS } = require('@whttlr/plugin-types');
 
 /**
  * Script to create a new plugin from template
@@ -23,6 +24,7 @@ function createPlugin(pluginId, pluginName, templateType = 'dashboard') {
     process.exit(1);
   }
 
+  // Valid placement types from shared types
   const validTemplates = ['dashboard', 'standalone', 'modal', 'sidebar'];
   if (!validTemplates.includes(templateType)) {
     console.error(`❌ Error: Template type must be one of: ${validTemplates.join(', ')}`);
@@ -193,7 +195,8 @@ function generatePackageJson(pluginId, pluginName) {
     dependencies: {
       react: '^18.2.0',
       'react-dom': '^18.2.0',
-      antd: '^5.12.0'
+      antd: '^5.12.0',
+      '@whttlr/plugin-types': '^1.0.1'
     },
     devDependencies: {
       '@types/react': '^18.2.43',
@@ -217,6 +220,7 @@ function generateMainComponent(pluginId, pluginName, templateType) {
   const componentName = getComponentName(templateType);
   
   return `import React from 'react';
+import { PluginAPI } from '@whttlr/plugin-types';
 import { ${componentName} } from './components/${componentName}';
 import './styles.css';
 
@@ -227,11 +231,15 @@ export const pluginConfig = {
   version: '1.0.0'
 };
 
+interface Props {
+  api: PluginAPI;
+}
+
 // Main plugin component
-const ${pluginName.replace(/[^a-zA-Z0-9]/g, '')}Plugin: React.FC = () => {
+const ${pluginName.replace(/[^a-zA-Z0-9]/g, '')}Plugin: React.FC<Props> = ({ api }) => {
   return (
     <div className="${pluginId}-plugin">
-      <${componentName} />
+      <${componentName} api={api} />
     </div>
   );
 };
@@ -246,8 +254,13 @@ function generateComponent(pluginId, pluginName, templateType) {
   const templates = {
     dashboard: `import React, { useState, useEffect } from 'react';
 import { Card, Statistic, Row, Col } from 'antd';
+import { PluginAPI } from '@whttlr/plugin-types';
 
-export const ${componentName}: React.FC = () => {
+interface Props {
+  api: PluginAPI;
+}
+
+export const ${componentName}: React.FC<Props> = ({ api }) => {
   const [data, setData] = useState({
     value1: 0,
     value2: 0,
@@ -255,17 +268,24 @@ export const ${componentName}: React.FC = () => {
   });
 
   useEffect(() => {
+    // Example: Get machine configuration using the plugin API
+    const machineConfig = api.config.getSection('machine');
+    const jogSpeed = api.config.get('machine.jogSettings.defaultSpeed');
+    
+    console.log('Machine Config:', machineConfig);
+    console.log('Jog Speed:', jogSpeed);
+    
     // Simulate data updates
     const interval = setInterval(() => {
       setData(prev => ({
         value1: Math.floor(Math.random() * 100),
-        value2: Math.floor(Math.random() * 50),
+        value2: jogSpeed || Math.floor(Math.random() * 50),
         status: ['idle', 'running', 'paused'][Math.floor(Math.random() * 3)]
       }));
     }, 2000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [api]);
 
   return (
     <Card title="${pluginName}" size="small" className="${pluginId}-dashboard">
@@ -592,6 +612,7 @@ function getComponentName(templateType) {
 }
 
 function getCategory(templateType) {
+  // Valid categories from plugin types: 'monitoring' | 'control' | 'visualization' | 'utility' | 'automation' | 'management'
   const categories = {
     dashboard: 'monitoring',
     standalone: 'utility',
@@ -602,13 +623,21 @@ function getCategory(templateType) {
 }
 
 function getPermissions(templateType) {
+  // Use permissions from shared types to ensure consistency
   const permissions = {
     dashboard: ['machine.read', 'status.read'],
     standalone: ['config.read', 'config.write'],
     modal: ['machine.read'],
     sidebar: ['machine.read']
   };
-  return permissions[templateType] || ['machine.read'];
+  // Validate all permissions are valid from VALID_PERMISSIONS
+  const result = permissions[templateType] || ['machine.read'];
+  result.forEach(perm => {
+    if (!VALID_PERMISSIONS.includes(perm)) {
+      console.warn(`Warning: Invalid permission "${perm}" - using valid permissions only`);
+    }
+  });
+  return result.filter(perm => VALID_PERMISSIONS.includes(perm));
 }
 
 // Command line execution

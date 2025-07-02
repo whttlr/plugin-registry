@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const semver = require('semver');
 
 /**
  * Script to update an existing plugin in the registry
@@ -20,10 +21,9 @@ function updatePlugin(pluginId, version, downloadUrl = null) {
     process.exit(1);
   }
 
-  // Validate version format
-  const versionRegex = /^\d+\.\d+\.\d+$/;
-  if (!versionRegex.test(version)) {
-    console.error('Error: Version must be in format major.minor.patch (e.g., 1.2.3)');
+  // Validate version format using semver
+  if (!semver.valid(version)) {
+    console.error('Error: Version must be valid semver format (e.g., 1.2.3)');
     process.exit(1);
   }
 

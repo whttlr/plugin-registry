@@ -1,17 +1,10 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import { PluginRegistryEntry } from '@whttlr/plugin-types';
 
-interface Plugin {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  placement: string;
-  author: string;
-  version: string;
-  keywords: string[];
-}
+// Use the shared type instead of duplicating the interface
+type Plugin = PluginRegistryEntry;
 
 // This would normally be fetched from the registry API
 const SAMPLE_PLUGINS: Plugin[] = [
@@ -20,40 +13,48 @@ const SAMPLE_PLUGINS: Plugin[] = [
     name: 'Machine Monitor',
     description: 'Real-time machine status monitoring with comprehensive dashboard displaying position, speed, and connectivity status',
     category: 'monitoring',
-    placement: 'dashboard',
     author: 'CNC Controls Team',
     version: '1.0.0',
-    keywords: ['monitoring', 'dashboard', 'real-time', 'status']
+    downloadUrl: 'https://github.com/whttlr/plugin-registry/releases/download/machine-monitor-v1.0.0/machine-monitor.zip',
+    manifestUrl: 'https://raw.githubusercontent.com/whttlr/plugin-registry/main/plugins/machine-monitor/plugin.json',
+    tags: ['monitoring', 'dashboard', 'real-time', 'status'],
+    lastUpdated: '2024-01-15T10:30:00Z'
   },
   {
     id: 'gcode-snippets',
     name: 'G-code Snippets',
     description: 'Quick access to commonly used G-code commands and custom snippets',
     category: 'utility',
-    placement: 'sidebar',
     author: 'Community',
     version: '2.1.0',
-    keywords: ['gcode', 'snippets', 'utility']
+    downloadUrl: 'https://github.com/whttlr/plugin-registry/releases/download/gcode-snippets-v2.1.0/gcode-snippets.zip',
+    manifestUrl: 'https://raw.githubusercontent.com/whttlr/plugin-registry/main/plugins/gcode-snippets/plugin.json',
+    tags: ['gcode', 'snippets', 'utility'],
+    lastUpdated: '2024-01-10T14:20:00Z'
   },
   {
     id: 'tool-library',
     name: 'Tool Library',
     description: 'Comprehensive tool management with database of cutting tools and parameters',
     category: 'management',
-    placement: 'standalone',
     author: 'CNC Controls Team',
     version: '1.5.2',
-    keywords: ['tools', 'database', 'management']
+    downloadUrl: 'https://github.com/whttlr/plugin-registry/releases/download/tool-library-v1.5.2/tool-library.zip',
+    manifestUrl: 'https://raw.githubusercontent.com/whttlr/plugin-registry/main/plugins/tool-library/plugin.json',
+    tags: ['tools', 'database', 'management'],
+    lastUpdated: '2024-01-12T09:45:00Z'
   },
   {
     id: 'quick-settings',
     name: 'Quick Settings',
     description: 'Fast access to frequently used machine settings and configurations',
     category: 'utility',
-    placement: 'modal',
     author: 'Community',
     version: '1.0.1',
-    keywords: ['settings', 'configuration', 'quick']
+    downloadUrl: 'https://github.com/whttlr/plugin-registry/releases/download/quick-settings-v1.0.1/quick-settings.zip',
+    manifestUrl: 'https://raw.githubusercontent.com/whttlr/plugin-registry/main/plugins/quick-settings/plugin.json',
+    tags: ['settings', 'configuration', 'quick'],
+    lastUpdated: '2024-01-08T16:30:00Z'
   },
 ];
 

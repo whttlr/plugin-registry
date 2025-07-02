@@ -9,7 +9,8 @@ A centralized registry system for managing, distributing, and versioning CNC app
 - `npm run create-plugin` - Generate plugin from template
 - `npm run package-plugin` - Build and package plugin for distribution
 - `npm run update-plugin` - Update existing plugin version
-- `npm run test` - Run test suite
+- `npm run test-compatibility` - Test type compatibility with electron-app
+- `npm run test` - Run full test suite (validation + compatibility)
 - `npm run lint` - Run ESLint code analysis
 - `npm run clean` - Clean build artifacts
 

@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { validatePluginManifest } = require('./validate-registry');
 
 /**
  * Script to add a new plugin to the registry
@@ -49,13 +50,14 @@ function addPlugin(pluginId, manifestPath = null) {
     process.exit(1);
   }
 
-  // Validate manifest has required fields
-  const requiredFields = ['id', 'name', 'version', 'description', 'author'];
-  for (const field of requiredFields) {
-    if (!manifest[field]) {
-      console.error(`Error: Plugin manifest missing required field: ${field}`);
-      process.exit(1);
-    }
+  // Validate manifest using shared validation
+  const validationResult = validatePluginManifest(manifest);
+  if (!validationResult.isValid) {
+    console.error('Error: Plugin manifest validation failed:');
+    validationResult.errors.forEach(error => {
+      console.error(`  - ${error}`);
+    });
+    process.exit(1);
   }
 
   // Ensure plugin ID matches

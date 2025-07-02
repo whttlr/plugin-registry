@@ -9,7 +9,8 @@
     "update-plugin": "node scripts/update-plugin.js",
     "package-plugin": "node scripts/package-plugin.js",
     "create-plugin": "node scripts/create-plugin.js",
-    "test": "npm run validate"
+    "test-compatibility": "node scripts/test-type-compatibility.js",
+    "test": "npm run validate && npm run test-compatibility"
   },
   "repository": {
     "type": "git",
