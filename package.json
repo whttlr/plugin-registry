@@ -24,6 +24,9 @@
   ],
   "author": "CNC Controls Team",
   "license": "MIT",
+  "dependencies": {
+    "@whttlr/plugin-types": "^1.0.1"
+  },
   "devDependencies": {
     "ajv-cli": "^5.0.0",
     "archiver": "^6.0.2",

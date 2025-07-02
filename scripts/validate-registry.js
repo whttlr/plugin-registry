@@ -3,6 +3,16 @@
 const fs = require('fs');
 const path = require('path');
 
+// Import validation constants from shared types package
+const {
+  VALID_PLUGIN_PLACEMENTS,
+  PLUGIN_ID_PATTERN,
+  VERSION_PATTERN,
+  URL_PATTERN
+} = require('@whttlr/plugin-types/dist/plugin/PluginRegistry');
+
+const { VALID_PERMISSIONS } = require('@whttlr/plugin-types/dist/permissions');
+
 /**
  * Script to validate the plugin registry and all plugin manifests
  * Usage: node scripts/validate-registry.js
@@ -116,13 +126,13 @@ function validatePluginEntry(plugin, index) {
   }
 
   // Validate plugin ID format
-  if (plugin.id && !/^[a-z0-9-]+$/.test(plugin.id)) {
+  if (plugin.id && !PLUGIN_ID_PATTERN.test(plugin.id)) {
     console.error(`${prefix} Invalid ID format (must be lowercase, numbers, hyphens only)`);
     errors++;
   }
 
   // Validate version format
-  if (plugin.version && !/^\d+\.\d+\.\d+$/.test(plugin.version)) {
+  if (plugin.version && !VERSION_PATTERN.test(plugin.version)) {
     console.error(`${prefix} Invalid version format (must be major.minor.patch)`);
     errors++;
   }
@@ -168,22 +178,15 @@ function validatePluginManifest(manifestPath, expectedId) {
     }
 
     // Validate placement
-    const validPlacements = ['dashboard', 'standalone', 'modal', 'sidebar'];
-    if (manifest.placement && !validPlacements.includes(manifest.placement)) {
+    if (manifest.placement && !VALID_PLUGIN_PLACEMENTS.includes(manifest.placement)) {
       console.error(`${prefix} Invalid placement: ${manifest.placement}`);
       errors++;
     }
 
     // Validate permissions
     if (manifest.permissions && Array.isArray(manifest.permissions)) {
-      const validPermissions = [
-        'machine.read', 'machine.write', 'machine.control',
-        'status.read', 'files.read', 'files.write',
-        'config.read', 'config.write', 'network.access'
-      ];
-      
       for (const permission of manifest.permissions) {
-        if (!validPermissions.includes(permission)) {
+        if (!VALID_PERMISSIONS.includes(permission)) {
           console.error(`${prefix} Invalid permission: ${permission}`);
           errors++;
         }
