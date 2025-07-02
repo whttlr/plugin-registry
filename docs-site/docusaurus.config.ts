@@ -85,12 +85,6 @@ const config: Config = {
           position: 'left',
           label: 'Documentation',
         },
-        {
-          type: 'docSidebar',
-          sidebarId: 'apiSidebar',
-          position: 'left',
-          label: 'API Reference',
-        },
         {to: '/plugins', label: 'Plugin Gallery', position: 'left'},
         {to: '/blog', label: 'Updates', position: 'left'},
         {
@@ -112,11 +106,11 @@ const config: Config = {
             },
             {
               label: 'Plugin Development',
-              to: '/docs/development',
+              to: '/docs/development/overview',
             },
             {
-              label: 'API Reference',
-              to: '/docs/api',
+              label: 'Quick Reference',
+              to: '/docs/quick-reference',
             },
           ],
         },
@@ -128,12 +122,12 @@ const config: Config = {
               to: '/plugins',
             },
             {
-              label: 'Quick Reference',
-              to: '/docs/quick-reference',
+              label: 'Tutorial',
+              to: '/docs/tutorial-basics/create-a-document',
             },
             {
-              label: 'Publishing Guide',
-              to: '/docs/publishing',
+              label: 'Blog',
+              to: '/blog',
             },
           ],
         },

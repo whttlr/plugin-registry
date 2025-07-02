@@ -13,63 +13,35 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
  Create as many sidebars as you want.
  */
 const sidebars: SidebarsConfig = {
-  // Main documentation sidebar
+  // Main documentation sidebar - only include existing pages
   tutorialSidebar: [
     'intro',
-    {
-      type: 'category',
-      label: 'Getting Started',
-      items: [
-        'getting-started/overview',
-        'getting-started/installation',
-        'getting-started/first-plugin',
-      ],
-    },
     {
       type: 'category',
       label: 'Plugin Development',
       items: [
         'development/overview',
-        'development/architecture',
-        'development/configuration',
-        'development/data-access',
-        'development/ui-components',
-        'development/testing',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Publishing',
-      items: [
-        'publishing/overview',
-        'publishing/validation',
-        'publishing/release-process',
-        'publishing/troubleshooting',
       ],
     },
     'quick-reference',
-  ],
-
-  // API Reference sidebar
-  apiSidebar: [
-    'api/overview',
     {
       type: 'category',
-      label: 'Plugin API',
+      label: 'Tutorial (Default)',
       items: [
-        'api/plugin-interface',
-        'api/configuration-api',
-        'api/machine-api',
-        'api/events-api',
+        'tutorial-basics/create-a-document',
+        'tutorial-basics/create-a-blog-post', 
+        'tutorial-basics/create-a-page',
+        'tutorial-basics/markdown-features',
+        'tutorial-basics/deploy-your-site',
+        'tutorial-basics/congratulations',
       ],
     },
     {
       type: 'category',
-      label: 'Registry API',
+      label: 'Tutorial Extras',
       items: [
-        'api/registry-format',
-        'api/plugin-manifest',
-        'api/schemas',
+        'tutorial-extras/manage-docs-versions',
+        'tutorial-extras/translate-your-site',
       ],
     },
   ],
