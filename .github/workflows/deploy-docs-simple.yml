@@ -40,6 +40,14 @@ jobs:
         working-directory: ./docs-site
         run: npm run build
         
+      - name: List build output
+        working-directory: ./docs-site
+        run: |
+          echo "Build output:"
+          ls -la build/
+          echo "Index file check:"
+          ls -la build/index.html || echo "No index.html found"
+        
       - name: Setup Pages
         uses: actions/configure-pages@v4
         
