@@ -101,9 +101,9 @@ function PluginCard({ plugin }: { plugin: Plugin }) {
         </div>
         
         <div className="plugin-card__keywords">
-          {plugin.keywords.slice(0, 3).map(keyword => (
-            <span key={keyword} className="plugin-card__keyword">
-              {keyword}
+          {plugin.tags.slice(0, 3).map(tag => (
+            <span key={tag} className="plugin-card__keyword">
+              {tag}
             </span>
           ))}
         </div>
@@ -171,7 +171,7 @@ export default function PluginGallery(): JSX.Element {
     const matchesSearch = searchTerm === '' || 
       plugin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       plugin.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      plugin.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm.toLowerCase()));
+      plugin.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
     return matchesCategory && matchesSearch;
   });
