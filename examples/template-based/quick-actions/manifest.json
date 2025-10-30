@@ -1,0 +1,63 @@
+{
+  "id": "com.whttlr.quick-actions",
+  "name": "Quick Actions",
+  "version": "1.0.0",
+  "description": "Common CNC operations at your fingertips using ActionCard template",
+  "author": "Whttlr Team",
+  "apiVersion": "1.0.0",
+  "mainView": "dashboard",
+  "permissions": ["state", "events", "machine", "logger"],
+  "enabled": true,
+  "category": "utility",
+  "keywords": ["actions", "shortcuts", "commands", "quick", "template"],
+  "card": {
+    "template": "ActionCard",
+    "templateData": {
+      "title": "Quick Actions",
+      "description": "Common operations",
+      "layout": "grid",
+      "actions": [
+        {
+          "label": "Home All",
+          "variant": "default",
+          "event": "machine:home",
+          "icon": "home"
+        },
+        {
+          "label": "Zero XY",
+          "variant": "outline",
+          "event": "machine:zero-xy"
+        },
+        {
+          "label": "Zero Z",
+          "variant": "outline",
+          "event": "machine:zero-z"
+        },
+        {
+          "label": "Spindle On",
+          "variant": "default",
+          "event": "machine:spindle-on",
+          "icon": "play"
+        },
+        {
+          "label": "Spindle Off",
+          "variant": "outline",
+          "event": "machine:spindle-off",
+          "icon": "stop"
+        },
+        {
+          "label": "Emergency Stop",
+          "variant": "destructive",
+          "event": "machine:emergency-stop",
+          "icon": "alert"
+        }
+      ]
+    },
+    "cols": 6,
+    "priority": 170,
+    "responsive": {
+      "xs": 12,
+      "md": 6
+    }
+  }
+}

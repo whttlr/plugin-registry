@@ -1,36 +1,61 @@
 {
   "id": "machine-monitor",
   "name": "Machine Monitor",
-  "version": "1.0.0",
-  "description": "Real-time machine status monitoring with comprehensive dashboard displaying position, speed, and connectivity status",
+  "version": "2.0.0",
+  "description": "Real-time machine status monitoring with comprehensive dashboard displaying position, speed, and connectivity status (template-based, no code execution)",
   "author": "CNC Controls Team",
+  "apiVersion": "1.0.0",
+  "mainView": "dashboard",
+  "enabled": true,
+  "permissions": ["state", "events", "logger"],
   "license": "MIT",
   "homepage": "https://github.com/whttlr/machine-monitor-plugin",
   "repository": {
     "type": "git",
     "url": "https://github.com/whttlr/machine-monitor-plugin.git"
   },
-  "keywords": ["monitoring", "dashboard", "real-time", "status"],
+  "keywords": ["monitoring", "dashboard", "real-time", "status", "template"],
   "category": "monitoring",
-  "placement": "dashboard",
-  "screen": "main",
-  "size": {
-    "width": 400,
-    "height": 300
-  },
-  "priority": 1,
-  "autoStart": true,
-  "permissions": ["machine.read", "status.read"],
   "compatibility": {
     "minAppVersion": "1.0.0",
     "maxAppVersion": "2.0.0"
   },
-  "dependencies": {
-    "react": "^18.0.0",
-    "antd": "^5.0.0"
-  },
   "screenshots": [
     "https://raw.githubusercontent.com/whttlr/machine-monitor-plugin/main/screenshots/dashboard.png"
   ],
-  "changelog": "https://raw.githubusercontent.com/whttlr/machine-monitor-plugin/main/CHANGELOG.md"
+  "changelog": "https://raw.githubusercontent.com/whttlr/machine-monitor-plugin/main/CHANGELOG.md",
+  "card": {
+    "template": "StatusCard",
+    "templateData": {
+      "title": "Machine Monitor",
+      "subtitle": "Real-Time Status",
+      "status": "connected",
+      "statusLabel": "Active",
+      "info": [
+        { "label": "Position X", "value": "0.000 mm", "monospace": true },
+        { "label": "Position Y", "value": "0.000 mm", "monospace": true },
+        { "label": "Position Z", "value": "0.000 mm", "monospace": true },
+        { "label": "Feed Rate", "value": "0 mm/min", "monospace": true },
+        { "label": "Spindle", "value": "OFF" }
+      ],
+      "actions": [
+        {
+          "label": "Refresh",
+          "variant": "outline",
+          "event": "monitor:refresh"
+        },
+        {
+          "label": "Details",
+          "variant": "default",
+          "event": "monitor:details"
+        }
+      ]
+    },
+    "cols": 6,
+    "priority": 500,
+    "responsive": {
+      "xs": 12,
+      "md": 6
+    }
+  }
 }

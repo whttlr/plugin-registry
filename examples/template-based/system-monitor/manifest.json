@@ -1,0 +1,45 @@
+{
+  "id": "com.whttlr.system-monitor",
+  "name": "System Monitor",
+  "version": "1.0.0",
+  "description": "Real-time system resource monitoring using StatusCard template",
+  "author": "Whttlr Team",
+  "apiVersion": "1.0.0",
+  "mainView": "dashboard",
+  "permissions": ["state", "events", "logger"],
+  "enabled": true,
+  "category": "monitoring",
+  "keywords": ["system", "monitor", "resources", "cpu", "memory", "template"],
+  "card": {
+    "template": "StatusCard",
+    "templateData": {
+      "title": "System Monitor",
+      "subtitle": "Resource Usage",
+      "status": "connected",
+      "statusLabel": "Healthy",
+      "info": [
+        { "label": "CPU", "value": "42%", "monospace": true },
+        { "label": "Memory", "value": "3.2 GB / 8 GB", "monospace": true },
+        { "label": "Disk", "value": "125 GB Free", "monospace": true }
+      ],
+      "actions": [
+        {
+          "label": "Refresh",
+          "variant": "outline",
+          "event": "system:refresh"
+        },
+        {
+          "label": "Details",
+          "variant": "default",
+          "event": "system:details"
+        }
+      ]
+    },
+    "cols": 6,
+    "priority": 150,
+    "responsive": {
+      "xs": 12,
+      "md": 6
+    }
+  }
+}

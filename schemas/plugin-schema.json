@@ -2,12 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CNC Plugin Manifest Schema",
   "type": "object",
-  "required": ["id", "name", "version", "description", "author", "placement"],
+  "required": ["id", "name", "version", "description", "author", "mainView", "entryPoint", "apiVersion", "enabled", "permissions"],
   "properties": {
     "id": {
       "type": "string",
-      "pattern": "^[a-z0-9-]+$",
-      "description": "Unique plugin identifier (lowercase, numbers, hyphens only)",
+      "pattern": "^[a-z0-9.-]+$",
+      "description": "Unique plugin identifier (lowercase, numbers, hyphens, dots)",
       "minLength": 3,
       "maxLength": 50
     },
@@ -34,6 +34,50 @@
       "maxLength": 100,
       "description": "Plugin author or organization"
     },
+    "entryPoint": {
+      "type": "string",
+      "description": "JavaScript entry file",
+      "default": "plugin.js"
+    },
+    "apiVersion": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Plugin API version compatibility",
+      "default": "1.0.0"
+    },
+    "mainView": {
+      "type": "string",
+      "enum": ["dashboard", "standalone", "modal", "sidebar"],
+      "description": "View type determines UI placement"
+    },
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether plugin is enabled by default",
+      "default": true
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "state",
+          "events",
+          "services",
+          "logger",
+          "machine.read",
+          "machine.write",
+          "machine.control",
+          "status.read",
+          "files.read",
+          "files.write",
+          "config.read",
+          "config.write",
+          "network.access"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Required permissions for plugin operation"
+    },
     "license": {
       "type": "string",
       "description": "Software license identifier",
@@ -45,18 +89,27 @@
       "description": "Plugin homepage URL"
     },
     "repository": {
-      "type": "object",
-      "properties": {
-        "type": {
+      "oneOf": [
+        {
           "type": "string",
-          "enum": ["git", "svn", "hg"]
+          "pattern": "^https?://",
+          "description": "Repository URL"
         },
-        "url": {
-          "type": "string",
-          "pattern": "^https?://"
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["git", "svn", "hg"]
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            }
+          },
+          "required": ["type", "url"]
         }
-      },
-      "required": ["type", "url"]
+      ]
     },
     "keywords": {
       "type": "array",
@@ -72,17 +125,6 @@
       "type": "string",
       "enum": ["monitoring", "control", "visualization", "utility", "automation", "management"],
       "description": "Primary plugin category"
-    },
-    "placement": {
-      "type": "string",
-      "enum": ["dashboard", "standalone", "modal", "sidebar"],
-      "description": "Where the plugin will be displayed in the UI"
-    },
-    "screen": {
-      "type": "string",
-      "enum": ["main", "controls", "settings", "new"],
-      "description": "Which screen the plugin appears on",
-      "default": "main"
     },
     "size": {
       "type": "object",
@@ -113,25 +155,6 @@
       "type": "boolean",
       "description": "Whether plugin starts automatically",
       "default": false
-    },
-    "permissions": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "machine.read",
-          "machine.write",
-          "machine.control",
-          "status.read",
-          "files.read",
-          "files.write",
-          "config.read",
-          "config.write",
-          "network.access"
-        ]
-      },
-      "uniqueItems": true,
-      "description": "Required permissions for plugin operation"
     },
     "menuTitle": {
       "type": "string",
@@ -185,6 +208,63 @@
       "type": "string",
       "pattern": "^https?://",
       "description": "URL to changelog document"
+    },
+    "card": {
+      "type": "object",
+      "description": "Dashboard card configuration (for mainView: 'dashboard')",
+      "properties": {
+        "template": {
+          "type": "string",
+          "enum": ["StatusCard", "DataDisplayCard", "UploadCard", "ListCard", "ActionCard", "MediaPlayerCard"],
+          "description": "Card template to use (optional: if not specified, renders plugin iframe)"
+        },
+        "templateData": {
+          "type": "object",
+          "description": "Data for the card template (template-specific structure)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Custom card title (overrides plugin name)"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Card icon"
+        },
+        "cols": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 12,
+          "description": "Number of columns to span (1-12)"
+        },
+        "width": {
+          "type": "string",
+          "description": "CSS width value (e.g., '33%', '400px', 'auto')"
+        },
+        "height": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "string", "enum": ["auto"]}
+          ],
+          "description": "CSS height value or 'auto'"
+        },
+        "responsive": {
+          "type": "object",
+          "description": "Responsive column configuration",
+          "properties": {
+            "xs": {"type": "number", "minimum": 1, "maximum": 12},
+            "sm": {"type": "number", "minimum": 1, "maximum": 12},
+            "md": {"type": "number", "minimum": 1, "maximum": 12},
+            "lg": {"type": "number", "minimum": 1, "maximum": 12},
+            "xl": {"type": "number", "minimum": 1, "maximum": 12}
+          },
+          "additionalProperties": false
+        },
+        "priority": {
+          "type": "number",
+          "description": "Display priority (supports decimals, lower renders first)"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

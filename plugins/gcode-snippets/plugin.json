@@ -4,6 +4,11 @@
   "version": "1.1.0",
   "description": "Quick access to common G-code commands and snippets with customizable library and one-click insertion",
   "author": "CNC Controls Team",
+  "entryPoint": "plugin.js",
+  "apiVersion": "1.0.0",
+  "mainView": "standalone",
+  "enabled": true,
+  "permissions": ["state", "events", "logger", "files.read", "files.write", "machine.write"],
   "license": "MIT",
   "homepage": "https://github.com/whttlr/gcode-snippets-plugin",
   "repository": {
@@ -12,8 +17,6 @@
   },
   "keywords": ["gcode", "snippets", "productivity", "commands"],
   "category": "utility",
-  "placement": "standalone",
-  "screen": "new",
   "menuTitle": "G-Code Snippets",
   "menuIcon": "CodeOutlined",
   "routePath": "/gcode-snippets",
@@ -23,7 +26,6 @@
   },
   "priority": 10,
   "autoStart": false,
-  "permissions": ["files.read", "files.write", "machine.write"],
   "compatibility": {
     "minAppVersion": "1.0.0",
     "maxAppVersion": "2.0.0"

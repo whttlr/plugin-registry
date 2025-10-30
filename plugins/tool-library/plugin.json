@@ -4,6 +4,11 @@
   "version": "1.0.0",
   "description": "Comprehensive tool management system for organizing CNC tool collection with specifications, usage tracking, and maintenance schedules",
   "author": "CNC Controls Team",
+  "entryPoint": "plugin.js",
+  "apiVersion": "1.0.0",
+  "mainView": "standalone",
+  "enabled": true,
+  "permissions": ["state", "events", "logger", "config.read", "config.write", "files.read", "files.write"],
   "license": "MIT",
   "homepage": "https://github.com/whttlr/tool-library-plugin",
   "repository": {
@@ -12,8 +17,6 @@
   },
   "keywords": ["tools", "library", "organization", "management", "inventory"],
   "category": "management",
-  "placement": "standalone",
-  "screen": "new",
   "menuTitle": "Tool Library",
   "menuIcon": "ToolOutlined",
   "routePath": "/tool-library",
@@ -23,7 +26,6 @@
   },
   "priority": 20,
   "autoStart": false,
-  "permissions": ["config.read", "config.write", "files.read", "files.write"],
   "compatibility": {
     "minAppVersion": "1.0.0",
     "maxAppVersion": "2.0.0"

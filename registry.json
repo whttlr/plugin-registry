@@ -5,10 +5,10 @@
       "id": "quick-settings",
       "name": "Quick Settings",
       "description": "Quick Settings plugin for CNC Controls application",
-      "author": "Your Name",
+      "author": "Whttlr",
       "version": "1.0.0",
-      "downloadUrl": "https://github.com/your-org/cnc-plugin-registry/releases/download/quick-settings-v1.0.0/quick-settings.zip",
-      "manifestUrl": "https://raw.githubusercontent.com/your-org/cnc-plugin-registry/main/plugins/quick-settings/plugin.json",
+      "downloadUrl": "https://github.com/whttlr/plugin-registry/releases/download/quick-settings-v1.0.0/quick-settings.zip",
+      "manifestUrl": "https://raw.githubusercontent.com/whttlr/plugin-registry/main/plugins/quick-settings/plugin.json",
       "category": "utility",
       "tags": [
         "modal",
@@ -17,7 +17,7 @@
       ],
       "minAppVersion": "1.0.0",
       "maxAppVersion": "2.0.0",
-      "lastUpdated": "2025-07-02T00:20:43.551Z"
+      "lastUpdated": "2025-10-30T15:30:00.000Z"
     }
   ],
   "categories": [
@@ -28,5 +28,5 @@
     "automation",
     "management"
   ],
-  "lastUpdated": "2025-07-02T00:20:43.557Z"
+  "lastUpdated": "2025-10-30T15:30:00.000Z"
 }

@@ -1,0 +1,32 @@
+{
+  "id": "com.whttlr.quick-upload",
+  "name": "Quick Upload",
+  "version": "1.0.0",
+  "description": "Fast file upload widget using UploadCard template",
+  "author": "Whttlr Team",
+  "apiVersion": "1.0.0",
+  "mainView": "dashboard",
+  "permissions": ["state", "events", "files", "logger"],
+  "enabled": true,
+  "category": "utility",
+  "keywords": ["upload", "files", "gcode", "quick", "template"],
+  "card": {
+    "template": "UploadCard",
+    "templateData": {
+      "title": "Quick Upload",
+      "description": "Drag & drop G-code files",
+      "accept": ".gcode, .nc, .txt, .tap",
+      "maxSize": 104857600,
+      "multiple": false,
+      "icon": "upload",
+      "dragDropText": "Drop G-code files here"
+    },
+    "cols": 6,
+    "height": "200px",
+    "priority": 190,
+    "responsive": {
+      "xs": 12,
+      "md": 6
+    }
+  }
+}

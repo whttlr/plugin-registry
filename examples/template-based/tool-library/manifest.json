@@ -1,0 +1,85 @@
+{
+  "id": "com.whttlr.tool-library",
+  "name": "Tool Library",
+  "version": "1.0.0",
+  "description": "Quick access to your CNC tool collection using ListCard template",
+  "author": "Whttlr Team",
+  "apiVersion": "1.0.0",
+  "mainView": "dashboard",
+  "permissions": ["state", "events", "logger"],
+  "enabled": true,
+  "category": "utility",
+  "keywords": ["tools", "library", "collection", "bits", "template"],
+  "card": {
+    "template": "ListCard",
+    "templateData": {
+      "title": "Tool Library",
+      "items": [
+        {
+          "id": "tool-1",
+          "title": "1/4\" End Mill",
+          "subtitle": "4-flute carbide",
+          "badge": {
+            "text": "active",
+            "variant": "success",
+            "icon": "check"
+          },
+          "metadata": [
+            { "icon": "tool", "text": "T1" },
+            { "text": "6000 RPM" },
+            { "text": "150 mm/min" }
+          ]
+        },
+        {
+          "id": "tool-2",
+          "title": "V-Bit 90°",
+          "subtitle": "Engraving bit",
+          "badge": {
+            "text": "ready",
+            "variant": "secondary"
+          },
+          "metadata": [
+            { "icon": "tool", "text": "T2" },
+            { "text": "12000 RPM" },
+            { "text": "300 mm/min" }
+          ]
+        },
+        {
+          "id": "tool-3",
+          "title": "Ball Nose 1/8\"",
+          "subtitle": "3D carving",
+          "badge": {
+            "text": "worn",
+            "variant": "warning",
+            "icon": "alert"
+          },
+          "metadata": [
+            { "icon": "tool", "text": "T3" },
+            { "text": "8000 RPM" },
+            { "text": "200 mm/min" }
+          ]
+        }
+      ],
+      "emptyState": {
+        "icon": "tool",
+        "title": "No tools configured",
+        "description": "Add tools to your library to get started"
+      },
+      "footer": {
+        "actions": [
+          {
+            "label": "Manage Tools",
+            "event": "tools:manage",
+            "variant": "outline"
+          }
+        ]
+      }
+    },
+    "cols": 6,
+    "priority": 180,
+    "responsive": {
+      "xs": 12,
+      "md": 6
+    }
+  }
+}

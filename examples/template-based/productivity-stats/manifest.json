@@ -1,0 +1,61 @@
+{
+  "id": "com.whttlr.productivity-stats",
+  "name": "Productivity Stats",
+  "version": "1.0.0",
+  "description": "Track your CNC productivity metrics using DataDisplayCard template",
+  "author": "Whttlr Team",
+  "apiVersion": "1.0.0",
+  "mainView": "dashboard",
+  "permissions": ["state", "events", "logger"],
+  "enabled": true,
+  "category": "monitoring",
+  "keywords": ["productivity", "metrics", "stats", "analytics", "template"],
+  "card": {
+    "template": "DataDisplayCard",
+    "templateData": {
+      "title": "Today's Productivity",
+      "subtitle": "Your CNC stats for the day",
+      "metrics": [
+        {
+          "label": "Jobs Completed",
+          "value": "8",
+          "trend": "up",
+          "change": "+2 from yesterday"
+        },
+        {
+          "label": "Machine Time",
+          "value": "6.5h",
+          "trend": "up",
+          "change": "+0.5h"
+        },
+        {
+          "label": "Material Used",
+          "value": "2.4kg",
+          "trend": "neutral"
+        },
+        {
+          "label": "Success Rate",
+          "value": "95%",
+          "trend": "up",
+          "change": "+5%"
+        }
+      ],
+      "footer": {
+        "text": "Last updated: 2 minutes ago",
+        "actions": [
+          {
+            "label": "View Details",
+            "event": "productivity:details",
+            "data": { "period": "today" }
+          }
+        ]
+      }
+    },
+    "cols": 6,
+    "priority": 160,
+    "responsive": {
+      "xs": 12,
+      "md": 6
+    }
+  }
+}
